@@ -13,6 +13,7 @@ import Attacks from "@/components/attack/Attacks";
 Vue.use(Router);
 
 export default new Router({
+    mode: 'history',
     routes: [
         {
             path: '/',

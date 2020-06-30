@@ -1,5 +1,4 @@
 <template>
-    <!-- Footer -->
     <mdb-footer color="unique-color-dark" class="page-footer font-small mt-0 pt-0">
         <mdb-container class="py-5 text-center text-md-left">
             <mdb-row class="mt-3">
@@ -66,7 +65,6 @@
             </mdb-container>
         </div>
     </mdb-footer>
-    <!-- Footer -->
 </template>
 
 <script>
