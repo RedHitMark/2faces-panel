@@ -33,6 +33,9 @@
 
     export default {
         name: "Devices",
+        components: {
+            ModelListSelect
+        },
         data () {
             return {
                 targets: [],
@@ -102,9 +105,6 @@
 
                 return i < array.length;
             }
-        },
-        components: {
-            ModelListSelect
         }
     }
 </script>

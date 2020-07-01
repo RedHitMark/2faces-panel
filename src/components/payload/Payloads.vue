@@ -14,18 +14,29 @@
             </div>
 
             <mdb-container v-else>
-                <router-link tag="button" class="btn btn-primary ripple-parent" to="/payloads/new/">Create new</router-link>
+                <mdb-row class="justify-content-center">
+                    <mdb-col sm="12" md="6" lg="6" class="justify-content-center align-items-center">
+                        <router-link tag="button" class="btn unique-color-dark text-white ripple-parent" to="/payloads/new/">Create new</router-link>
+                    </mdb-col>
+                    <mdb-col sm="12" md="6" lg="6">
+                        <mdb-input label="Search" type="text" class="mt-0" v-model="searchTerm" v-on:input="searchPayload"/>
+                    </mdb-col>
+                </mdb-row>
 
-                <mdb-row>
-                    <mdb-col sm="12" md="6" lg="4" class="mt-5" v-for="(payload, index) in payloads" v-bind:key="index">
+                <mdb-row class="justify-content-center">
+                    <mdb-col sm="12" md="6" lg="4" class="mt-5" v-for="(payload, index) in payloadsFiltered" v-bind:key="index">
                         <mdb-card>
                             <mdb-card-body>
                                 <mdb-card-title>{{ payload.name }}</mdb-card-title>
                                 <mdb-card-text>{{ payload.description }}</mdb-card-text>
 
-                                <router-link tag="button" class="btn btn-primary ripple-parent" :to="'/payloads/details/' + payload._id">Show detail</router-link>
-                                <router-link tag="button" class="btn btn-primary ripple-parent" :to="'/payloads/edit/' + payload._id"><i class="fas fa-edit"></i></router-link>
-                                <mdb-btn color="primary" v-on:click="deletePayload(payload._id)"><i class="fas fa-trash-alt"></i></mdb-btn>
+                                <mdb-row class="justify-content-center align-items-center">
+                                    <router-link tag="button" class="btn unique-color-dark text-white ripple-parent" :to="'/payloads/details/' + payload._id">Show detail</router-link>
+                                </mdb-row>
+                                <mdb-row class="justify-content-around align-items-around">
+                                    <router-link tag="button" class="btn rey-lighten-5 text-unique-color-dark ripple-parent" :to="'/payloads/edit/' + payload._id"><i class="fas fa-edit"></i></router-link>
+                                    <mdb-btn color="grey-lighten-5" class="btn grey-lighten-5 text-unique-color-dark ripple-parent" v-on:click="deletePayload(payload._id)"><i class="fas fa-trash-alt"></i></mdb-btn>
+                                </mdb-row>
                             </mdb-card-body>
                         </mdb-card>
                     </mdb-col>
@@ -37,7 +48,7 @@
 
 <script>
     import PayloadsService from "@/services/PayloadsService";
-    import { mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardBody, mdbCardTitle, mdbCardText, mdbBtn} from 'mdbvue';
+    import { mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardBody, mdbCardTitle, mdbCardText, mdbBtn, mdbInput} from 'mdbvue';
     export default {
         name: "Payloads",
         components: {
@@ -48,11 +59,14 @@
             mdbCardBody,
             mdbCardTitle,
             mdbCardText,
-            mdbBtn
+            mdbBtn,
+            mdbInput
         },
         data () {
             return {
+                searchTerm: "",
                 payloads: [],
+                payloadsFiltered: [],
                 loading: true,
                 errored: false
             }
@@ -65,6 +79,7 @@
                 PayloadsService.fetchPayloads()
                     .then(response => {
                         this.payloads = response.data;
+                        this.searchPayload()
                     })
                     .catch(error => {
                         console.log(error);
@@ -90,6 +105,12 @@
                             this.loading = false;
                         });
                 }
+            },
+            async searchPayload() {
+                console.log(this.searchTerm);
+                this.payloadsFiltered = this.payloads.filter((payload) => {
+                    return payload.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) !== -1 || payload.description.toLowerCase().indexOf(this.searchTerm.toLowerCase()) !== -1
+                })
             }
         }
     }

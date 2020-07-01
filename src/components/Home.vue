@@ -28,7 +28,7 @@
         <h2 class="h2-responsive font-weight-bold text-center mt-5">Explore</h2>
       </mdb-row>
 
-      <mdb-row class="justify-content-md-center align-items-center">
+      <mdb-row class="justify-content-center">
         <mdb-col xl="4" md="6" class="mb-4" v-for="(menuEntry, index) in menuEntries" :key="index">
 
           <mdb-card class="rounded-card">

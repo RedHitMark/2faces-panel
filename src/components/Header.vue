@@ -1,10 +1,10 @@
 <template>
     <div id="header">
-        <mdb-navbar color="unique-color-dark">
-            <mdb-navbar-brand>
+        <mdb-navbar color="unique-color-dark" togglerIcon="caret-square-down">
+            <mdb-navbar-brand class="text-white">
                 <img width="" id="logo" alt="Vue logo" src="./../assets/logo.png">
             </mdb-navbar-brand>
-            <mdb-navbar-toggler>
+            <mdb-navbar-toggler class="text-white">
                 <mdb-navbar-nav>
                     <mdb-nav-item color="unique-color-dark" v-for="(menuEntry, index) in menuEntries" :key="index"><router-link  class="white-text font-weight-bold" v-bind:to="menuEntry.href">{{menuEntry.name}}</router-link></mdb-nav-item>
                     <mdb-dropdown tag="li" class="nav-item">
