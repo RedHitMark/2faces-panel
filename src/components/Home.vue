@@ -37,9 +37,9 @@
               <mdb-mask flex-center waves overlay="white-slight"></mdb-mask>
             </mdb-view>
             <mdb-card-body>
-              <mdb-card-title>{{menuEntry.name}}</mdb-card-title>
-              <mdb-card-text>{{menuEntry.description}}</mdb-card-text>
-              <router-link tag="button" class="btn unique-color-dark text-white ripple-parent" :to="menuEntry.href">Go</router-link>
+              <mdb-card-title class="text-center">{{menuEntry.name}}</mdb-card-title>
+              <mdb-card-text class="text-center">{{menuEntry.description}}</mdb-card-text>
+              <router-link tag="button" class="btn unique-color-dark text-white ripple-parent full-button" :to="menuEntry.href">Go</router-link>
             </mdb-card-body>
           </mdb-card>
 
@@ -123,5 +123,9 @@
   .card-image-fixed{
     height: 200px;
     margin-top: 30px;
+  }
+
+  .full-button {
+    width: calc(100% - 12px);
   }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="payloads">
-        <h1 class="h1-responsive font-weight-bold text-center my-5">All payloads:</h1>
+        <h1 class="h1-responsive font-weight-bold text-center my-5">Payloads</h1>
 
         <section v-if="errored">
             <p>We're sorry, we're not able to retrieve the payloads at the moment, please try back later</p>
