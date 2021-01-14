@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from "@/components/Home";
 import Team from "@/components/Team";
-import Contact from "@/components/Contact";
 import Devices from "@/components/Devices";
 import Payloads from "@/components/payload/Payloads";
 import PayloadDetails from "@/components/payload/PayloadDetails";
@@ -22,18 +21,13 @@ export default new Router({
         },
         {
             path: '/home',
-            name: 'home1',
+            name: 'home',
             component: Home
         },
         {
             path: '/team',
             name: 'team',
             component: Team
-        },
-        {
-            path: '/contact',
-            name: 'contact',
-            component: Contact
         },
         {
             path: '/devices',

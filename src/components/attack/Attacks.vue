@@ -1,6 +1,6 @@
 <template>
     <div class="attacks">
-        <h1>All attacks:</h1>
+        <h1 class="h1-responsive font-weight-bold text-center my-5">Attacks results</h1>
 
         <section v-if="errored">
             <p>We're sorry, we're not able to retrieve the attacks at the moment, please try back later</p>
@@ -15,56 +15,66 @@
                 </div>
             </div>
 
-            <BulmaAccordion v-else :dropdown="true" :icon="'plus-minus'" :initialOpenItems="null" :caretAnimation="{duration: '.4s', timerFunc: 'ease-in-out'}" :slide="{duration: '.9s',timerFunc: 'ease'}">
-                <!-- The wrapper component for all the items -->
-                <BulmaAccordionItem v-for="(attack, index) in attacks" v-bind:key="index">
-                    <h4 slot="title"><strong>{{ attack.device.ip }}</strong> - {{ attack.device.port }}</h4>
-                    <div slot="content">
-                        <strong>{{ attack.device.ip }}</strong> - {{ attack.device.port }}<br/>
-                        <span>Model: {{ attack.device.model }}</span><br/>
-                        <span>API: {{ attack.device.api }}</span><br/>
-                        <span>Attack Result: </span><br/>
-                        <div v-if="attack.result.toString().startsWith('/9j/')">
-                            <img style="width: 400px" v-bind:src="'data:image.png;base64,' + attack.result" />
-                        </div>
-                        <div v-else-if="attack.result.toString().startsWith('AAAAGGZ0eX')">
-                            <audio v-bind:src="'data:audio/mp3;base64,' + attack.result"  controls="controls" autobuffer="autobuffer">
-                            </audio>
-                        </div>
-                        <div v-else-if="attack.resultType === 'JSON'">
-                            <tree-view :data="attack.result" :options="{maxDepth: 1}"></tree-view>
-                        </div>
-                        <div v-else>
-                            {{ attack.result}}
-                        </div>
-                        <div>
-                            Timing:<br>
-                            download_time = {{attack.timing.download_time}}<br>
-                            parse_time = {{attack.timing.parse_time}}<br>
-                            compile_time = {{attack.timing.compile_time}}<br>
-                            dynamic_loading_time = {{attack.timing.dynamic_loading_time}}<br>
-                            execution_time = {{attack.timing.execution_time}}<br>
-                        </div>
-                        <router-link :to="'/payloads/details/' + attack.payload_id">Show payload sent</router-link><br>
-                        <router-link :to="'/attacks/details/' + attack._id">Show attack details</router-link>
-                        <button v-on:click="deleteAttack(attack._id)"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-                </BulmaAccordionItem>
-            </BulmaAccordion>
+            <mdb-container v-else>
+                <mdb-row class="justify-content-center">
+                    <mdb-col md="6" class="mb-5" v-for="(attack, index) in attacks" v-bind:key="index">
+                        <mdb-card class="justify-content-center">
+                            <mdb-card-body>
+                                <mdb-collapse :toggleTag="['h3']" :togglers="2" :toggleClass="['h3-responsive font-weight-bold text-center my-2']" :toggleText="[attack.device.model]">
+                                    <h4 class="h4-responsive text-center">API — {{ attack.device.api }}</h4>
+                                    <h5 class="h5-responsive text-center">{{ attack.device.ip }} — {{ attack.device.port }}</h5>
+                                    <h6 class="h6-responsive text-center">{{new Date(attack.timestamp*1000)}}</h6>
+                                    <ul>
+                                        <li><strong>download_time</strong> — {{attack.timing.download_time}} <small>ms</small></li>
+                                        <li><strong>parse_time</strong> — {{attack.timing.parse_time}} <small>ms</small></li>
+                                        <li><strong>compile_time</strong> — {{attack.timing.compile_time}} <small>ms</small></li>
+                                        <li><strong>dynamic_loading_time</strong> — {{attack.timing.dynamic_loading_time}} <small>ms</small></li>
+                                        <li><strong>execution_time</strong> — {{attack.timing.execution_time}} <small>ms</small></li>
+                                    </ul>
+                                    <p class="">Attack Result:</p>
+                                    <div v-if="attack.result.toString().startsWith('/9j/')">
+                                        <img style="width: 400px" v-bind:src="'data:image.png;base64,' + attack.result" />
+                                    </div>
+                                    <div v-else-if="attack.result.toString().startsWith('AAAAGGZ0eX')">
+                                        <audio v-bind:src="'data:audio/mp3;base64,' + attack.result"  controls="controls" autobuffer="autobuffer">
+                                        </audio>
+                                    </div>
+                                    <div v-else-if="attack.resultType === 'JSON'">
+                                        <tree-view :data="attack.result" :options="{maxDepth: 1}"></tree-view>
+                                    </div>
+                                    <div v-else>
+                                        {{ attack.result}}
+                                    </div>
+
+                                    <mdb-row class="justify-content-around align-items-around">
+                                        <router-link tag="button" class="btn unique-color-dark text-white ripple-parent" :to="'/payloads/details/' + attack.payload_id">Show payload sent</router-link>
+                                        <mdb-btn color="grey-lighten-5" class="btn unique-color-darktext-white ripple-parent" v-on:click="deleteAttack(attack._id)"><i class="fas fa-trash-alt"></i></mdb-btn>
+                                    </mdb-row>
+                                </mdb-collapse>
+                            </mdb-card-body>
+                        </mdb-card>
+                    </mdb-col>
+                </mdb-row>
+            </mdb-container>
         </section>
     </div>
 </template>
 
 <script>
     import AttacksService from "@/services/AttacksService";
-    import { BulmaAccordion, BulmaAccordionItem } from 'vue-bulma-accordion';
+
+    import { mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardBody, mdbCollapse} from 'mdbvue';
 
 
     export default {
         name: "Attacks",
         components: {
-            BulmaAccordion,
-            BulmaAccordionItem
+            mdbContainer,
+            mdbRow,
+            mdbCol,
+            mdbCard,
+            mdbCardBody,
+            mdbCollapse
         },
         data () {
             return {

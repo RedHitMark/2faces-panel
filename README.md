@@ -1,4 +1,4 @@
-# 3faces-panel
+# 2faces-panel
 
 ## Project setup
 ```

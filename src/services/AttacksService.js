@@ -7,9 +7,6 @@ export default {
     fetchAttack(attack_id) {
         return Api().get('attacks?attack_id=' + attack_id)
     },
-    createAttack(newAttack) {
-        return Api().post('attacks', newAttack)
-    },
     deleteAttack(attack_id) {
         return Api().delete('attacks?attack_id=' + attack_id)
     }
