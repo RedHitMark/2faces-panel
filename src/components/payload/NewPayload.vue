@@ -2,55 +2,70 @@
     <div class="new-payload">
         <router-link to="/payloads">Go back to payloads list</router-link>
 
-        <h1>New payload</h1>
-
         <section v-if="creationErrored">
             <p>We're sorry, we're not able to create a new payloads at the moment, please try back later</p>
         </section>
 
         <section v-else>
-            <div v-if="loading">Creating...</div>
-
-            <form v-else @submit.prevent="checkForm">
-
-                <div v-if="errors.length">
+            <mdb-container>
+                <mdb-row class="text-center justify-content-center align-items-center">
+                    <h2 class="h2-responsive font-weight-bold text-center mt-5">New payload</h2>
+                </mdb-row>
+                <mdb-row v-if="errors.length">
                     <b>Please correct the following error(s):</b>
                     <ul>
                         <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
                     </ul>
-                </div>
+                </mdb-row>
+                <mdb-row>
+                    <mdb-col>
+                        <mdb-input label="Payload name" v-model="payloadName" />
+                    </mdb-col>
+                </mdb-row>
+                <mdb-row>
+                    <mdb-col>
+                        <mdb-input label="Payload description" v-model="payloadDescription" />
+                    </mdb-col>
+                </mdb-row>
+                <mdb-row>
+                    <mdb-col>
+                        <strong>Write your Java code</strong><br>
+                        Be careful:
+                        <ul>
+                            <li>Please use only <code>/* Block comment */</code></li>
+                            <li>Please don't use nested class</li>
+                            <li>You can call another class in this code only using dynamic loading and reflection</li>
+                        </ul>
 
-                <div class="payload-name">
-                    <label for="payload-name">Payload name: </label><input type="text" id="payload-name" placeholder="Enter the name of payload"  v-model="payloadName">
-                </div>
-
-                <div class="payload-description">
-                    <label for="payload-description">Payload description: </label><input type="text" id="payload-description" placeholder="Enter the description of payload"  v-model="payloadDescription">
-                </div>
-
-                <div class="payload-description">
-                    <label for="payload-return-type">Return type: </label>
-                    <select name="payload-return-type" id="payload-return-type" v-model="payloadResultType">
-                        <option value="String">String</option>
-                        <option value="JSON">JSON</option>
-                        <option value="Image">Image</option>
-                        <option value="Sound">Sound</option>
-                    </select>
-                </div>
-
-                <div class="payload-content">
-                    <p>Write your Java class, please use the method run() to inject code</p>
-                    <codemirror :options="cmOptions" @ready="onCmReady" v-model="payloadContent"/>
-                </div>
-                <div class="permissions-checkboxes">
-                    <div class="permissions-checkbox" v-for="(permission, index) in permissions" v-bind:key="index">
-                        <input type="checkbox" :id="permission.name.toString().toLowerCase()" :value="permission.name" v-model="checkedPermissions">
-                        <label :for="permission.name.toString().toLowerCase()">{{permission.name}}</label>
-                    </div>
-                </div>
-
-                <input type="submit" value="Submit">
-            </form>
+                        <codemirror :options="cmOptions" @ready="onCmReady" v-model="payloadContent"/>
+                    </mdb-col>
+                </mdb-row>
+                <mdb-row class="justify-content-center align-items-center">
+                    <mdb-col>
+                        <select class="browser-default custom-select" v-model="payloadResultType">
+                            <option value="null" selected>Select return type</option>
+                            <option value="String">String</option>
+                            <option value="JSON">JSON</option>
+                            <option value="Image">Image</option>
+                            <option value="Sound">Sound</option>
+                        </select>
+                    </mdb-col>
+                    <mdb-col>
+                        <mdb-input label="MethodToInvoke" v-model="payloadMethodToInvoke" />
+                    </mdb-col>
+                </mdb-row>
+                <mdb-row>
+                    <mdb-col>
+                        <p>Permissions to grant</p>
+                        <multiselect v-model="payloadVulnerabilities"
+                                     :options="permissions.map(a => a.name)"
+                                     :searcable="true"
+                                     :multiple="true"
+                                     :allow-empty="false">
+                        </multiselect>
+                    </mdb-col>
+                </mdb-row>
+            </mdb-container>
         </section>
 
     </div>
@@ -58,8 +73,6 @@
 
 <script>
     import PayloadsService from "@/services/PayloadsService";
-
-    const permissions_json = require('../../utils/permissions.json');
 
     // import language js
     import 'codemirror/mode/clike/clike'
@@ -69,8 +82,23 @@
     import 'codemirror/addon/hint/anyword-hint';
     import 'codemirror/addon/hint/show-hint';
 
+    //import multiselect
+    import Multiselect from 'vue-multiselect'
+
+    // bootstrap import
+    import { mdbContainer, mdbRow, mdbCol, mdbInput } from 'mdbvue';
+
+    const permissions_json = require('../../utils/permissions.json');
+
     export default {
         name: "NewPayload",
+        components: {
+            mdbContainer,
+            mdbRow,
+            mdbCol,
+            mdbInput,
+            Multiselect
+        },
         data() {
             return {
                 errors : [],
@@ -79,6 +107,8 @@
                 permissions: permissions_json,
                 payloadName : null,
                 payloadDescription : null,
+                payloadVulnerabilities : [],
+                payloadMethodToInvoke : [],
                 payloadContent :
                     "import android.content.Context;\n" +
                     "\n" +

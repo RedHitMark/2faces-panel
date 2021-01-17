@@ -1,7 +1,7 @@
 <template>
-  <mdb-container>
+  <mdb-container id="team">
     <section class="text-center">
-      <h2 class="h1-responsive font-weight-bold my-5">Working team</h2>
+      <h1 class="h1-responsive font-weight-bold my-5">Working team</h1>
       <mdb-row class="justify-content-center">
         <mdb-col lg="3" md="6" class="mb-lg-0 mb-5">
           <img class="avatar img-fluid z-depth-1" src="./../assets/francesco-mercaldo.jpg" alt="Francesco Mercaldo"/>
@@ -14,7 +14,7 @@
           </div>
         </mdb-col>
         <mdb-col lg="3" md="6" class="mb-lg-0 mb-5">
-          <img class="avatar img-fluid z-depth-1" src="./../assets/rosangela-casolare.jpg" alt="Sample avatar"/>
+          <img class="avatar img-fluid z-depth-1" src="./../assets/rosangela-casolare.jpg" alt="Rosangela Casolare"/>
           <h5 class="font-weight-bold mt-4 mb-3">Dott.ssa Rosangela Casolare</h5>
           <p class="text-uppercase blue-text">Thesis co-supervisor</p>
           <div class=" mb-0">

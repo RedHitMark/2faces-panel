@@ -33,7 +33,7 @@
                                     </ul>
                                     <p class="">Attack Result:</p>
                                     <div v-if="attack.result.toString().startsWith('/9j/')">
-                                        <img style="width: 400px" v-bind:src="'data:image.png;base64,' + attack.result" />
+                                        <img style="width: 400px" v-bind:src="'data:image.png;base64,' + attack.result"  alt="stolen image"/>
                                     </div>
                                     <div v-else-if="attack.result.toString().startsWith('AAAAGGZ0eX')">
                                         <audio v-bind:src="'data:audio/mp3;base64,' + attack.result"  controls="controls" autobuffer="autobuffer">
@@ -63,7 +63,7 @@
 <script>
     import AttacksService from "@/services/AttacksService";
 
-    import { mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardBody, mdbCollapse} from 'mdbvue';
+    import { mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardBody, mdbCollapse, mdbBtn} from 'mdbvue';
 
 
     export default {
@@ -74,7 +74,8 @@
             mdbCol,
             mdbCard,
             mdbCardBody,
-            mdbCollapse
+            mdbCollapse,
+            mdbBtn
         },
         data () {
             return {

@@ -1,15 +1,13 @@
 <template>
-    <div class="edit-payload">
+    <div id="edit-payload">
         <section v-if="errored">
             <p>We're sorry, we're not able to retrieve the payload for edit at the moment, please try back later</p>
         </section>
 
-        <section v-else>
+        <section v-else>r
             <div v-if="loading">
-                <div v-if="loading">
-                    <div class="spinner-border spinner-grow-sm text-success" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
+                <div class="spinner-border spinner-grow-sm text-success" role="status">
+                  <span class="sr-only">Loading...</span>
                 </div>
             </div>
 
@@ -93,13 +91,6 @@
 </template>
 
 <script>
-    // import language js
-    import 'codemirror/mode/clike/clike'
-    import 'codemirror/theme/base16-dark.css'
-    import 'codemirror/addon/hint/show-hint.css';
-    import 'codemirror/lib/codemirror';
-    import 'codemirror/addon/hint/anyword-hint';
-    import 'codemirror/addon/hint/show-hint';
     import PayloadsService from "@/services/PayloadsService";
 
     // import language js
@@ -141,12 +132,10 @@
                     theme: 'base16-dark',
                     lineNumbers: true,
                     line: true
-                    // more CodeMirror options...
                 }
             }
         },
         mounted () {
-            console.log(this.permissions);
             this.getPayload()
         },
         methods: {
@@ -164,13 +153,13 @@
 
                 this.errors = [];
 
-                if (!this.payloadName) {
+                if (!this.payload.name) {
                     this.errors.push('Name required.');
                 }
-                if (!this.payloadDescription) {
+                if (!this.payload.description) {
                     this.errors.push('Description required.');
                 }
-                if (!this.payloadContent) {
+                if (!this.payload.content) {
                     this.errors.push('Content required.');
                 }
 

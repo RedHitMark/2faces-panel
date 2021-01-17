@@ -21,7 +21,7 @@ export default new Router({
         },
         {
             path: '/home',
-            name: 'home',
+            name: 'home-alt',
             component: Home
         },
         {
