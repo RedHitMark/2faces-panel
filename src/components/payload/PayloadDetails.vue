@@ -1,41 +1,92 @@
 <template>
-    <div class="detail-payload">
-        <section v-if="errored">
+    <mdb-container class="detail-payload">
+        <mdb-row v-if="errored">
             <p>We're sorry, we're not able to retrieve the payload at the moment, please try back later</p>
-        </section>
+        </mdb-row>
+
+        <mdb-row v-else-if="loading">
+          <div class="spinner-border spinner-grow-sm text-success" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </mdb-row>
 
         <section v-else>
-            <div v-if="loading">
-                <font-awesome-icon icon="spinner" size="3x" spin></font-awesome-icon>
-            </div>
+          <mdb-row class="justify-content-center align-items-center mt-5">
+            <h1 class="h1-responsive font-weight-bold">{{payload.name}}</h1>
+          </mdb-row>
 
-            <div v-else>
-                <h1>Payloads: {{payload.name}}</h1>
-                <h4>{{ payload.description }}</h4>
+          <mdb-row class="justify-content-center align-items-center">
+            <h3 class="h3-responsive font-weight-bold">{{ payload.description }}</h3>
+          </mdb-row>
 
-                <p v-if="payload.vulnerabilities.length === 0">You can use this payload on every device</p>
+          <mdb-row>
+            <span class="font-weight-bold">Java Payload</span>
+          </mdb-row>
 
-                <p v-else>You can use this payload on devices that use these permissions:</p>
-                <ul>
-                    <li v-for="(permission, index) in payload.vulnerabilities" v-bind:key="index">{{ permission }}</li>
-                </ul>
+          <mdb-row>
+            <codemirror class="w-100" v-model="payload.content" :options="cmOptions"></codemirror>
+          </mdb-row>
 
-                <codemirror v-model="payload.content" :options="cmOptions"></codemirror>
+          <mdb-row>
+            <mdb-col class="text-center">
+              <span class="font-weight-bold">This payload execution will return</span>
+              <br>
+              {{payload.resultType}}
+            </mdb-col>
+            <mdb-col class="text-center">
+              <span class="font-weight-bold">The first method that will be executed</span>
+              <br>
+              {{payload.methodToInvoke}}()
+            </mdb-col>
+          </mdb-row>
 
-                <router-link :to="'/payloads/edit/' + payload._id">Edit</router-link>
-                <button v-on:click="deletePayload()">Delete</button>
-            </div>
+          <mdb-row class="justify-content-center align-items-center">
+            <span v-if="payload.vulnerabilities.length === 0" class="font-weight-bold">You can use this payload on every device</span>
+
+            <span v-else class="font-weight-bold">Permissions required to execute this payload</span>
+          </mdb-row>
+
+          <mdb-row class="justify-content-center align-items-center">
+            <mdb-list-group>
+              <mdb-list-group-item v-for="(permission, index) in payload.vulnerabilities" v-bind:key="index">{{ permission }}</mdb-list-group-item>
+            </mdb-list-group>
+          </mdb-row>
+
+          <mdb-row>
+            <mdb-col class="justify-content-center end-buttons">
+              <router-link tag="button" class="btn unique-color-dark text-white ripple-parent" v-bind:to="'/payloads/edit/'+payload_id">Edit
+              </router-link>
+            </mdb-col>
+
+            <mdb-col class="justify-content-center end-buttons">
+              <button class="btn unique-color-dark text-white ripple-parent" v-on:click="deletePayload()">Delete
+              </button>
+            </mdb-col>
+
+            <mdb-col class="justify-content-center end-buttons">
+              <router-link tag="button" class="btn unique-color-dark text-white ripple-parent" to="/payloads">Go back
+              </router-link>
+            </mdb-col>
+          </mdb-row>
         </section>
-
-        <router-link to="/payloads">Go back to payloads list</router-link>
-    </div>
+    </mdb-container>
 </template>
 
 <script>
     import PayloadsService from "@/services/PayloadsService";
 
+    // bootstrap import
+    import { mdbContainer, mdbRow, mdbCol, mdbListGroup, mdbListGroupItem } from 'mdbvue';
+
     export default {
         name: "Payload",
+        components: {
+          mdbContainer,
+          mdbRow,
+          mdbCol,
+          mdbListGroup,
+          mdbListGroupItem
+        },
         data () {
             return {
                 payload_id: this.$route.params.payload_id,
@@ -49,7 +100,6 @@
                     lineNumbers: true,
                     line: true,
                     readOnly: true
-                    // more CodeMirror options...
                 }
             }
         },
@@ -60,6 +110,7 @@
             async getPayload() {
                 PayloadsService.fetchPayload(this.payload_id)
                     .then(response => {
+                        console.log( response.data);
                         this.payload = response.data;
                     })
                     .catch(error => {
@@ -91,5 +142,7 @@
 </script>
 
 <style scoped>
-
+.end-buttons {
+  display: flex;
+}
 </style>

@@ -1,74 +1,85 @@
 <template>
-    <div class="new-payload">
-        <router-link to="/payloads">Go back to payloads list</router-link>
+  <mdb-container id="new-payload">
+    <mdb-row class="text-center justify-content-center align-items-center">
+      <h1 class="h1-responsive font-weight-bold text-center mt-5">New Payload</h1>
+    </mdb-row>
 
-        <section v-if="creationErrored">
-            <p>We're sorry, we're not able to create a new payloads at the moment, please try back later</p>
-        </section>
+    <mdb-row v-if="creationErrored">
+      <p>We're sorry, we're not able to retrieve the payload for edit at the moment, please try back later</p>
+    </mdb-row>
 
-        <section v-else>
-            <mdb-container>
-                <mdb-row class="text-center justify-content-center align-items-center">
-                    <h2 class="h2-responsive font-weight-bold text-center mt-5">New payload</h2>
-                </mdb-row>
-                <mdb-row v-if="errors.length">
-                    <b>Please correct the following error(s):</b>
-                    <ul>
-                        <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-                    </ul>
-                </mdb-row>
-                <mdb-row>
-                    <mdb-col>
-                        <mdb-input label="Payload name" v-model="payloadName" />
-                    </mdb-col>
-                </mdb-row>
-                <mdb-row>
-                    <mdb-col>
-                        <mdb-input label="Payload description" v-model="payloadDescription" />
-                    </mdb-col>
-                </mdb-row>
-                <mdb-row>
-                    <mdb-col>
-                        <strong>Write your Java code</strong><br>
-                        Be careful:
-                        <ul>
-                            <li>Please use only <code>/* Block comment */</code></li>
-                            <li>Please don't use nested class</li>
-                            <li>You can call another class in this code only using dynamic loading and reflection</li>
-                        </ul>
+    <form v-else @submit.prevent="checkForm">
+      <mdb-row v-if="errors.length">
+        <b>Please correct the following error(s):</b>
+        <ul>
+          <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+        </ul>
+      </mdb-row>
 
-                        <codemirror :options="cmOptions" @ready="onCmReady" v-model="payloadContent"/>
-                    </mdb-col>
-                </mdb-row>
-                <mdb-row class="justify-content-center align-items-center">
-                    <mdb-col>
-                        <select class="browser-default custom-select" v-model="payloadResultType">
-                            <option value="null" selected>Select return type</option>
-                            <option value="String">String</option>
-                            <option value="JSON">JSON</option>
-                            <option value="Image">Image</option>
-                            <option value="Sound">Sound</option>
-                        </select>
-                    </mdb-col>
-                    <mdb-col>
-                        <mdb-input label="MethodToInvoke" v-model="payloadMethodToInvoke" />
-                    </mdb-col>
-                </mdb-row>
-                <mdb-row>
-                    <mdb-col>
-                        <p>Permissions to grant</p>
-                        <multiselect v-model="payloadVulnerabilities"
-                                     :options="permissions.map(a => a.name)"
-                                     :searcable="true"
-                                     :multiple="true"
-                                     :allow-empty="false">
-                        </multiselect>
-                    </mdb-col>
-                </mdb-row>
-            </mdb-container>
-        </section>
+      <mdb-row>
+        <mdb-col>
+          <mdb-input label="Payload name" v-model="payloadName"/>
+        </mdb-col>
+      </mdb-row>
 
-    </div>
+      <mdb-row>
+        <mdb-col>
+          <mdb-input label="Payload description" v-model="payloadDescription"/>
+        </mdb-col>
+      </mdb-row>
+
+      <mdb-row>
+        <mdb-col>
+          <strong>Write your Java code</strong><br>
+          Be careful:
+          <ul>
+            <li>Please use only <code>/* Block comment */</code></li>
+            <li>Please don't use nested class</li>
+            <li>You can call another class in this code only using dynamic loading and reflection</li>
+          </ul>
+
+          <codemirror :options="cmOptions" @ready="onCmReady" v-model="payloadContent"/>
+        </mdb-col>
+      </mdb-row>
+
+      <mdb-row class="justify-content-center align-items-center">
+        <mdb-col>
+          <select class="browser-default custom-select" v-model="payloadResultType">
+            <option value="null" selected>Select return type</option>
+            <option value="String">String</option>
+            <option value="JSON">JSON</option>
+            <option value="Image">Image</option>
+            <option value="Sound">Sound</option>
+          </select>
+        </mdb-col>
+        <mdb-col>
+          <mdb-input label="MethodToInvoke" v-model="payloadMethodToInvoke"/>
+        </mdb-col>
+      </mdb-row>
+
+      <mdb-row>
+        <mdb-col>
+          <p>Permissions to grant</p>
+          <multiselect v-model="payloadVulnerabilities"
+                       :options="permissions.map(a => a.name)"
+                       :searcable="true"
+                       :multiple="true"
+                       :allow-empty="false">
+          </multiselect>
+        </mdb-col>
+      </mdb-row>
+
+      <mdb-row>
+        <mdb-col class="justify-content-center end-buttons">
+          <input class="btn unique-color-dark text-white ripple-parent" type="submit" value="Update payload">
+        </mdb-col>
+        <mdb-col class="justify-content-center end-buttons">
+          <router-link tag="button" class="btn unique-color-dark text-white ripple-parent" to="/payloads">Go back
+          </router-link>
+        </mdb-col>
+      </mdb-row>
+    </form>
+  </mdb-container>
 </template>
 
 <script>
@@ -183,4 +194,7 @@
 </script>
 
 <style scoped>
+.end-buttons {
+  display: flex;
+}
 </style>

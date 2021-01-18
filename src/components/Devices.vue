@@ -40,8 +40,8 @@
                     <i class="fas fa-biohazard animated rotateIn infinite"></i>
                 </mdb-col>
             </mdb-row>
+          <mdb-toast-notification :show="showToast" :message="toastText"></mdb-toast-notification>
         </mdb-container>
-
     </div>
 </template>
 
@@ -51,7 +51,7 @@
     import { ModelListSelect } from 'vue-search-select'
     import PayloadsService from "@/services/PayloadsService";
 
-    import {mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardTitle, mdbCardBody, mdbCardText, mdbBtn} from 'mdbvue';
+    import {mdbContainer, mdbRow, mdbCol, mdbCard, mdbCardTitle, mdbCardBody, mdbCardText, mdbBtn, mdbToastNotification} from 'mdbvue';
     export default {
         name: "Devices",
         components: {
@@ -63,13 +63,16 @@
             mdbCardTitle,
             mdbCardBody,
             mdbCardText,
-            mdbBtn
+            mdbBtn,
+            mdbToastNotification
         },
         data () {
             return {
                 targets: [],
                 payloads: [],
-                refreshRate: 3000
+                refreshRate: 3000,
+                showToast: true,
+                toastText: "Empty"
             }
         },
         mounted () {
@@ -106,10 +109,12 @@
             async send(device, payload_id) {
                 DevicesService.activate(device, payload_id)
                     .then((response) => {
-                        alert("Attack's result: " + response.data.result)
+                        this.showToast = true;
+                        this.toastText = "Attack's result: " + response.data.result;
                     })
                     .catch((error) => {
-                        console.log(error);
+                      this.showToast = true;
+                      this.toastText = "Error: " + error;
                     });
             },
             filterPayload(payloads, permissionsGranted) {

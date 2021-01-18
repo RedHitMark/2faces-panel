@@ -1,29 +1,44 @@
 <template>
   <mdb-container id="home">
-    <mdb-row class="text-center justify-content-center align-items-center">
-      <h2 class="h2-responsive font-weight-bold text-center mt-5">Features</h2>
+    <mdb-row class="text-center justify-content-center align-items-center py-5">
+      <mdb-col md="6" sm="6">
+        <img class="main-logo" src="./../assets/logo.png" alt="2Faces logo"/>
+      </mdb-col>
+      <mdb-col md="6" sm="6">
+        <h1 class="h1-responsive font-weight-bold">2Faces</h1>
+        <h2 class="h5-responsive font-weight-bold">New Model of Android Malware</h2>
+      </mdb-col>
     </mdb-row>
-    <mdb-row class="text-center justify-content-center align-items-center">
-      <mdb-col md="3" sm="6" class="mt-5 android-col">
+
+    <div class="separator"></div>
+
+    <mdb-row class="text-center justify-content-center align-items-center mt-5">
+      <h2 class="h2-responsive font-weight-bold text-center">Features</h2>
+    </mdb-row>
+
+    <mdb-row class="text-center justify-content-center align-items-center  mb-5  mt-1">
+      <mdb-col md="3" sm="6" class="android-col">
         <i class="fab fa-android"></i>
         <h4 class="h4-responsive font-weight-bold">Android Malware</h4>
       </mdb-col>
-      <mdb-col md="3" sm="6" class="mt-5 dynamic-compiling-col">
+      <mdb-col md="3" sm="6" class="dynamic-compiling-col">
         <i class="fas fa-cogs"></i>
         <h4 class="h4-responsive font-weight-bold">Dynamic compiling</h4>
       </mdb-col>
-      <mdb-col md="3" sm="6" class="mt-5 dynamic-loading-col">
+      <mdb-col md="3" sm="6" class="dynamic-loading-col">
         <i class="fas fa-arrow-circle-up"></i>
         <h4 class="h4-responsive font-weight-bold">Dynamic loading</h4>
       </mdb-col>
-      <mdb-col md="3" sm="6" class="mt-5 stelth-col">
+      <mdb-col md="3" sm="6" class="stelth-col">
         <i class="fas fa-eye-slash"></i>
         <h4 class="h4-responsive font-weight-bold">Stealth mode</h4>
       </mdb-col>
     </mdb-row>
 
-    <mdb-row class="text-center justify-content-center align-items-center">
-      <h2 class="h2-responsive font-weight-bold text-center mt-5">Explore</h2>
+    <div class="separator"></div>
+
+    <mdb-row class="text-center justify-content-center align-items-center mt-5">
+      <h2 class="h2-responsive font-weight-bold text-center">Explore</h2>
     </mdb-row>
 
     <mdb-row class="justify-content-center">
@@ -104,6 +119,17 @@ export default {
 </script>
 
 <style scoped>
+.main-logo {
+  width: 100%;
+  max-width: 300px;
+}
+
+.separator {
+  width: 100%;
+  height: 2px;
+  background-color:#1c2331;
+  box-shadow: 0 5px 20px #1c2331;
+}
 
 .android-col i {
   color: #79C257;
@@ -138,4 +164,5 @@ export default {
 .full-button {
   width: calc(100% - 12px);
 }
+
 </style>
