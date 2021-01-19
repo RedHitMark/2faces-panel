@@ -15,75 +15,75 @@
     </mdb-row>
 
     <form v-else @submit.prevent="checkForm">
-        <mdb-row v-if="errors.length">
-          <b>Please correct the following error(s):</b>
+      <mdb-row v-if="errors.length">
+        <b>Please correct the following error(s):</b>
+        <ul>
+          <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+        </ul>
+      </mdb-row>
+
+      <mdb-row>
+        <mdb-col>
+          <mdb-input label="Payload name" v-model="payload.name"/>
+        </mdb-col>
+      </mdb-row>
+
+      <mdb-row>
+        <mdb-col>
+          <mdb-input label="Payload description" v-model="payload.description"/>
+        </mdb-col>
+      </mdb-row>
+
+      <mdb-row>
+        <mdb-col>
+          <strong>Write your Java code</strong><br>
+          Be careful:
           <ul>
-            <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+            <li>Please use only <code>/* Block comment */</code></li>
+            <li>Please don't use nested class</li>
+            <li>You can call another class in this code only using dynamic loading and reflection</li>
           </ul>
-        </mdb-row>
 
-        <mdb-row>
-          <mdb-col>
-            <mdb-input label="Payload name" v-model="payload.name"/>
-          </mdb-col>
-        </mdb-row>
+          <codemirror :options="cmOptions" @ready="onCmReady" v-model="payload.content"/>
+        </mdb-col>
+      </mdb-row>
 
-        <mdb-row>
-          <mdb-col>
-            <mdb-input label="Payload description" v-model="payload.description"/>
-          </mdb-col>
-        </mdb-row>
+      <mdb-row class="justify-content-center align-items-center">
+        <mdb-col>
+          <select class="browser-default custom-select" v-model="payload.resultType">
+            <option value="null" selected>Select return type</option>
+            <option value="String">String</option>
+            <option value="JSON">JSON</option>
+            <option value="Image">Image</option>
+            <option value="Sound">Sound</option>
+          </select>
+        </mdb-col>
+        <mdb-col>
+          <mdb-input label="MethodToInvoke" v-model="payload.methodToInvoke"/>
+        </mdb-col>
+      </mdb-row>
 
-        <mdb-row>
-          <mdb-col>
-            <strong>Write your Java code</strong><br>
-            Be careful:
-            <ul>
-              <li>Please use only <code>/* Block comment */</code></li>
-              <li>Please don't use nested class</li>
-              <li>You can call another class in this code only using dynamic loading and reflection</li>
-            </ul>
+      <mdb-row>
+        <mdb-col>
+          <p>Permissions to grant</p>
+          <multiselect v-model="payload.vulnerabilities"
+                       :options="permissions.map(a => a.name)"
+                       :searcable="true"
+                       :multiple="true"
+                       :allow-empty="false">
+          </multiselect>
+        </mdb-col>
+      </mdb-row>
 
-            <codemirror :options="cmOptions" @ready="onCmReady" v-model="payload.content"/>
-          </mdb-col>
-        </mdb-row>
-
-        <mdb-row class="justify-content-center align-items-center">
-          <mdb-col>
-            <select class="browser-default custom-select" v-model="payload.resultType">
-              <option value="null" selected>Select return type</option>
-              <option value="String">String</option>
-              <option value="JSON">JSON</option>
-              <option value="Image">Image</option>
-              <option value="Sound">Sound</option>
-            </select>
-          </mdb-col>
-          <mdb-col>
-            <mdb-input label="MethodToInvoke" v-model="payload.methodToInvoke"/>
-          </mdb-col>
-        </mdb-row>
-
-        <mdb-row>
-          <mdb-col>
-            <p>Permissions to grant</p>
-            <multiselect v-model="payload.vulnerabilities"
-                         :options="permissions.map(a => a.name)"
-                         :searcable="true"
-                         :multiple="true"
-                         :allow-empty="false">
-            </multiselect>
-          </mdb-col>
-        </mdb-row>
-
-        <mdb-row>
-          <mdb-col class="justify-content-center end-buttons">
-            <input class="btn unique-color-dark text-white ripple-parent" type="submit" value="Update payload">
-          </mdb-col>
-          <mdb-col class="justify-content-center end-buttons">
-            <router-link tag="button" class="btn unique-color-dark text-white ripple-parent" to="/payloads">Go back
-            </router-link>
-          </mdb-col>
-        </mdb-row>
+      <mdb-row>
+        <mdb-col class="justify-content-center end-buttons">
+          <input class="btn unique-color-dark text-white ripple-parent" type="submit" value="Update payload">
+        </mdb-col>
+        <mdb-col class="justify-content-center end-buttons">
+          <router-link tag="button" class="btn unique-color-dark text-white ripple-parent" to="/payloads">Go back
+          </router-link>
+        </mdb-col>
+      </mdb-row>
     </form>
   </mdb-container>
 </template>

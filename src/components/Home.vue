@@ -127,7 +127,7 @@ export default {
 .separator {
   width: 100%;
   height: 2px;
-  background-color:#1c2331;
+  background-color: #1c2331;
   box-shadow: 0 5px 20px #1c2331;
 }
 

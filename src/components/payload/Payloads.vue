@@ -3,7 +3,8 @@
     <h1 class="h1-responsive font-weight-bold text-center my-5">Payloads</h1>
 
     <section v-if="errored">
-      <p class="text-center">We're sorry, we're not able to retrieve the payloads at the moment, please try back later</p>
+      <p class="text-center">We're sorry, we're not able to retrieve the payloads at the moment, please try back
+        later</p>
     </section>
 
     <section v-else>

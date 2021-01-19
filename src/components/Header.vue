@@ -48,6 +48,7 @@ export default {
   border-radius: 20px;
   background-color: white;
 }
+
 .navbar-toggler-icon {
   background-image: url('https://mdbootstrap.com/img/svg/hamburger6.svg?color=000');
 }
