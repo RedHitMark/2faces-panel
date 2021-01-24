@@ -11,35 +11,35 @@
       </mdb-col>
     </mdb-row>
 
-    <div class="separator"></div>
-
-    <mdb-row class="text-center justify-content-center align-items-center mt-5">
-      <h2 class="h2-responsive font-weight-bold text-center">Features</h2>
-    </mdb-row>
-
     <mdb-row class="text-center justify-content-center align-items-center  mb-5  mt-1">
       <mdb-col md="3" sm="6" class="android-col">
-        <i class="fab fa-android"></i>
-        <h4 class="h4-responsive font-weight-bold">Android Malware</h4>
+        <mdb-card class="padded-card">
+          <i class="fab fa-android"></i>
+          <h4 class="h4-responsive font-weight-bold">Android Malware</h4>
+        </mdb-card>
       </mdb-col>
 
       <mdb-col md="3" sm="6" class="dynamic-compiling-col">
-        <i class="fas fa-cogs"></i>
-        <h4 class="h4-responsive font-weight-bold">Dynamic compiling</h4>
+        <mdb-card class="padded-card">
+          <i class="fas fa-cogs"></i>
+          <h4 class="h4-responsive font-weight-bold">Dynamic compiling</h4>
+        </mdb-card>
       </mdb-col>
 
       <mdb-col md="3" sm="6" class="dynamic-loading-col">
-        <i class="fas fa-arrow-circle-up"></i>
-        <h4 class="h4-responsive font-weight-bold">Dynamic loading</h4>
+        <mdb-card class="padded-card">
+          <i class="fas fa-arrow-circle-up"></i>
+          <h4 class="h4-responsive font-weight-bold">Dynamic loading</h4>
+        </mdb-card>
       </mdb-col>
 
       <mdb-col md="3" sm="6" class="stelth-col">
-        <i class="fas fa-eye-slash"></i>
-        <h4 class="h4-responsive font-weight-bold">Stealth mode</h4>
+        <mdb-card class="padded-card">
+          <i class="fas fa-eye-slash"></i>
+          <h4 class="h4-responsive font-weight-bold">Stealth mode</h4>
+        </mdb-card>
       </mdb-col>
     </mdb-row>
-
-    <div class="separator"></div>
 
     <mdb-row class="text-center justify-content-center align-items-center mt-5">
       <h2 class="h2-responsive font-weight-bold text-center">Explore</h2>
@@ -47,7 +47,7 @@
 
     <mdb-row class="justify-content-center">
       <mdb-col xl="4" md="6" class="mb-4" v-for="(menuEntry, index) in menuEntries" :key="index">
-        <mdb-card class="rounded-card">
+        <mdb-card>
           <mdb-view hover>
             <mdb-card-image class="card-image-fixed" :src="menuEntry.imageSrc" :alt="menuEntry.name"></mdb-card-image>
             <mdb-mask flex-center waves overlay="white-slight"></mdb-mask>
@@ -127,14 +127,11 @@ export default {
 <style scoped>
 .main-logo {
   width: 100%;
-  max-width: 300px;
+  max-width: 500px;
 }
 
-.separator {
-  width: 100%;
-  height: 2px;
-  background-color: #1c2331;
-  box-shadow: 0 5px 20px #1c2331;
+.padded-card {
+  padding: 2em;
 }
 
 .android-col i {
@@ -158,13 +155,9 @@ export default {
 }
 
 
-.rounded-card {
-  border-radius: 30px;
-}
-
 .card-image-fixed {
   height: 200px;
-  margin-top: 30px;
+  border-radius: 3px 3px 0 0;
 }
 
 .full-button {

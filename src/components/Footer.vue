@@ -3,7 +3,7 @@
     <mdb-container class="py-3 text-center text-md-left">
       <mdb-row class="mt-3">
         <mdb-col md="12" lg="3" xl="3" class="mb-4">
-          <h6 class="text-uppercase font-weight-bold"><strong>2Faces malware</strong></h6>
+          <h6 class="h6-responsive color-white text-uppercase font-weight-bold"><strong>2Faces malware</strong></h6>
           <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px"/>
           <p>This is a university thesis about a new model of Android malware based on reflection, dynamic compiling and
             dynamic loading in order to execute malicious code not in the device at compile-time</p>
@@ -66,7 +66,7 @@
       </mdb-row>
     </mdb-container>
     <mdb-container fluid class="footer-copyright text-center py-3">
-      &copy; 2020 Copyright: <a href="http://redhitmark.ddns.net"> RedHitMark </a>
+      &copy; 2020 Copyright: <a href="http://redhitmark.ddns.net"> RedHitMark</a>
     </mdb-container>
   </mdb-footer>
 </template>
@@ -86,5 +86,7 @@ export default {
 </script>
 
 <style scoped>
-
+h6 {
+  color: white;
+}
 </style>

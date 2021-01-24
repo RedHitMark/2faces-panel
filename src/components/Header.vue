@@ -46,8 +46,9 @@ export default {
 #logo {
   max-width: 50px;
   height: auto;
-  border-radius: 20px;
-  background-color: white;
+}
+a {
+  font-size: 0.9em;
 }
 
 .navbar-toggler-icon {
