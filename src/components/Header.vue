@@ -3,6 +3,7 @@
     <mdb-navbar-brand>
       <img id="logo" alt="2Faces logo" src="./../assets/favicon.png">
     </mdb-navbar-brand>
+
     <mdb-navbar-toggler>
       <mdb-navbar-nav right>
         <mdb-nav-item waves-fixed color="unique-color-dark" v-for="(menuEntry, index) in menuEntries" :key="index">

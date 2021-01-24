@@ -33,6 +33,7 @@
           <br>
           {{ payload.resultType }}
         </mdb-col>
+
         <mdb-col class="text-center">
           <span class="font-weight-bold">The first method that will be executed</span>
           <br>
@@ -63,8 +64,7 @@
         </mdb-col>
 
         <mdb-col class="justify-content-center end-buttons">
-          <button class="btn unique-color-dark text-white ripple-parent" v-on:click="deletePayload()">Delete
-          </button>
+          <button class="btn unique-color-dark text-white ripple-parent" v-on:click="deletePayload()">Delete</button>
         </mdb-col>
 
         <mdb-col class="justify-content-center end-buttons">

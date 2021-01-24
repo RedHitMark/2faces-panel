@@ -8,6 +8,7 @@
           <p>This is a university thesis about a new model of Android malware based on reflection, dynamic compiling and
             dynamic loading in order to execute malicious code not in the device at compile-time</p>
         </mdb-col>
+
         <mdb-col md="3" lg="3" xl="3" class="mb-4">
           <h6 class="text-uppercase font-weight-bold"><strong>Publications</strong></h6>
           <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px"/>
@@ -17,6 +18,7 @@
           </p>
           <p><a href="#">2Faces Malware (WIP)</a></p>
         </mdb-col>
+
         <mdb-col md="3" lg="3" xl="3" class="mb-4">
           <h6 class="text-uppercase font-weight-bold"><strong>Useful links</strong></h6>
           <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px"/>
@@ -24,6 +26,7 @@
           <p><a href="https://github.com/RedHitMark/2faces-panel">GitHun Panel Repository</a></p>
           <p><a href="https://github.com/RedHitMark/2faces-android">GitHub Android Repository</a></p>
         </mdb-col>
+
         <mdb-col md="6" lg="3" xl="3" class="mb-4">
           <h6 class="text-uppercase font-weight-bold"><strong>Contact</strong></h6>
           <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px"/>

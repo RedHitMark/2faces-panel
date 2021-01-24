@@ -4,6 +4,7 @@
       <mdb-col md="6" sm="6">
         <img class="main-logo" src="./../assets/logo.png" alt="2Faces logo"/>
       </mdb-col>
+
       <mdb-col md="6" sm="6">
         <h1 class="h1-responsive font-weight-bold">2Faces</h1>
         <h2 class="h5-responsive font-weight-bold">New Model of Android Malware</h2>
@@ -21,14 +22,17 @@
         <i class="fab fa-android"></i>
         <h4 class="h4-responsive font-weight-bold">Android Malware</h4>
       </mdb-col>
+
       <mdb-col md="3" sm="6" class="dynamic-compiling-col">
         <i class="fas fa-cogs"></i>
         <h4 class="h4-responsive font-weight-bold">Dynamic compiling</h4>
       </mdb-col>
+
       <mdb-col md="3" sm="6" class="dynamic-loading-col">
         <i class="fas fa-arrow-circle-up"></i>
         <h4 class="h4-responsive font-weight-bold">Dynamic loading</h4>
       </mdb-col>
+
       <mdb-col md="3" sm="6" class="stelth-col">
         <i class="fas fa-eye-slash"></i>
         <h4 class="h4-responsive font-weight-bold">Stealth mode</h4>
@@ -43,15 +47,17 @@
 
     <mdb-row class="justify-content-center">
       <mdb-col xl="4" md="6" class="mb-4" v-for="(menuEntry, index) in menuEntries" :key="index">
-
         <mdb-card class="rounded-card">
           <mdb-view hover>
             <mdb-card-image class="card-image-fixed" :src="menuEntry.imageSrc" :alt="menuEntry.name"></mdb-card-image>
             <mdb-mask flex-center waves overlay="white-slight"></mdb-mask>
           </mdb-view>
+
           <mdb-card-body>
             <mdb-card-title class="text-center">{{ menuEntry.name }}</mdb-card-title>
+
             <mdb-card-text class="text-center">{{ menuEntry.description }}</mdb-card-text>
+
             <router-link tag="button" class="btn unique-color-dark text-white ripple-parent full-button"
                          :to="menuEntry.href">Go
             </router-link>
